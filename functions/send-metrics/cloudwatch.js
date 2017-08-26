@@ -1,5 +1,6 @@
 'use strict';
 
+const _          = require('lodash');
 const co         = require('co');
 const Promise    = require('bluebird');
 const AWS        = require('aws-sdk');
@@ -16,12 +17,19 @@ let publish = co.wrap(function* (metricDatum, namespace) {
     };
   });
 
-  let req = {
-    MetricData: metricData,
-    Namespace: namespace
-  };
+  // cloudwatch only allows 20 metrics per request
+  let chunks = _.chunk(metricData, 20);
 
-  yield cloudWatch.putMetricDataAsync(req);
+  for (let chunk of chunks) {
+    let req = {
+      MetricData: chunk,
+      Namespace: namespace
+    };
+  
+    yield cloudWatch.putMetricDataAsync(req);
+  
+    console.log(`sent [${chunk.length}] metrics`);
+  }  
 });
 
 module.exports = {

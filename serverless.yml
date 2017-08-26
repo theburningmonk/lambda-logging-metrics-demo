@@ -15,8 +15,15 @@ provider:
 
 functions:
   send-metrics:
-    handler: functions/send-metrics.handler
+    handler: functions/send-metrics/handler.handler
     description: Sends CloudWatch metrics asynchronously
+
+  test-api:
+    handler: functions/test-api/handler.handler
+    events: 
+      - http:
+          path: /
+          method: get
 
 resources:
   Resources:
