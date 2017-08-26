@@ -1,0 +1,21 @@
+{
+  "messageType": "DATA_MESSAGE",
+  "owner": "499014364541",
+  "logGroup": "/aws/lambda/log",
+  "logStream": "2017/08/20/[$LATEST]40237edd48f34b24970905cc8e7aa220",
+  "subscriptionFilters": [
+      "ship-logs"
+  ],
+  "logEvents": [
+      {
+        "id": "33523879000509538715657644838039675459397576285294297088",
+        "timestamp": 1503262725172,
+        "message": "START RequestId: 5ae184ed-85ea-11e7-a771-25a3e4ddb615 Version: $LATEST\n"
+      },
+      {
+        "id": "33523879000509538715657644838039675459397576285294297089",
+        "timestamp": 1503262725174,
+        "message": "2017-04-26T10:41:09.023Z\tdb95c6da-2a6c-11e7-9550-c91b65931beb\tMONITORING|42|count|page_views|theburningmonk.com\n"
+    }
+  ]
+}

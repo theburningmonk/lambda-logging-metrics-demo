@@ -1,0 +1,31 @@
+service: logging-metrics-demo
+
+plugins:
+ - serverless-pseudo-parameters
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "cloudwatch:PutMetricData"
+      Resource: "*"
+
+functions:
+  send-metrics:
+    handler: functions/send-metrics.handler
+    description: Sends CloudWatch metrics asynchronously
+
+resources:
+  Resources:
+    LambdaInvokePermission:
+      Type: AWS::Lambda::Permission
+      Properties:
+        Action: lambda:InvokeFunction
+        FunctionName:
+          Fn::Join:
+            - ""
+            - - "Ref" : "SendDashmetricsLambdaFunction"
+        Principal: logs.#{AWS::Region}.amazonaws.com
