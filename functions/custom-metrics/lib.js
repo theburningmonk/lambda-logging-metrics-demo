@@ -3,15 +3,15 @@
 const _          = require('lodash');
 const co         = require('co');
 const Promise    = require('bluebird');
-const parse      = require('./parse');
-const cloudwatch = require('./cloudwatch');
+const parse      = require('../../lib/parse');
+const cloudwatch = require('../../lib/cloudwatch');
 
 let processAll = co.wrap(function* (logGroup, logStream, logEvents) {
   let funcName    = parse.functionName(logGroup);
   let lambdaVer   = parse.lambdaVersion(logStream);
   let metricDatum = 
     logEvents
-      .map(e => parse.metric(funcName, lambdaVer, e.message))
+      .map(e => parse.customMetric(funcName, lambdaVer, e.message))
       .filter(m => m != null && m != undefined);
 
   let metricDatumByNamespace = _.groupBy(metricDatum, m => m.Namespace);

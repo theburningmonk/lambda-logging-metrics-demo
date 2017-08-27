@@ -7,13 +7,27 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "send-metrics",
+      "name": "custom-metrics",
       "program": "${workspaceRoot}/node_modules/.bin/sls",
       "args": [
         "invoke",
         "local",
         "-f",
-        "send-metrics",
+        "custom-metrics",
+        "-p",
+        "events/log-message.json"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "usage-metrics",
+      "program": "${workspaceRoot}/node_modules/.bin/sls",
+      "args": [
+        "invoke",
+        "local",
+        "-f",
+        "usage-metrics",
         "-p",
         "events/log-message.json"
       ]

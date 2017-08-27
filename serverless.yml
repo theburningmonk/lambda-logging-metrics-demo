@@ -14,9 +14,13 @@ provider:
       Resource: "*"
 
 functions:
-  send-metrics:
-    handler: functions/send-metrics/handler.handler
-    description: Sends CloudWatch metrics asynchronously
+  custom-metrics:
+    handler: functions/custom-metrics/handler.handler
+    description: Sends custom CloudWatch metrics asynchronously
+
+  usage-metrics:
+    handler: functions/usage-metrics/handler.handler
+    description: Tracks Memory Usage and Billed Duration as metrics
 
   test-api:
     handler: functions/test-api/handler.handler
@@ -24,15 +28,3 @@ functions:
       - http:
           path: /
           method: get
-
-resources:
-  Resources:
-    LambdaInvokePermission:
-      Type: AWS::Lambda::Permission
-      Properties:
-        Action: lambda:InvokeFunction
-        FunctionName:
-          Fn::Join:
-            - ""
-            - - "Ref" : "SendDashmetricsLambdaFunction"
-        Principal: logs.#{AWS::Region}.amazonaws.com
